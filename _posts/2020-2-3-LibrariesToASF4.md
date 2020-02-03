@@ -18,7 +18,7 @@ A summary of the process:
 * Resolve variables or missing data.
 * Enjoy.
 
-I did this using Ubuntu 19.04
+I did this using Ubuntu 19.04 and the gcc toolchain (no IDE).
 
 ## Copy library files to the project.
 
@@ -121,7 +121,7 @@ if (SysTick_Config(48000000/ 1000))
 if(mqtt_inst.isConnected){
     mqtt_yield(&mqtt_inst, 0);
 }
-``
+```
 
 From main.h on ASF3 copy the configuration defines and integrate on the main.h from the ASF4 (on applications folder).
 Make sure to put the correct mqtt broker ip.
@@ -136,9 +136,10 @@ There are some steps that require their own howto:
 * The toolchains availables for working with the SAM microprocesors.
 * How to debug an START applicacion.
 
-How to upload these in the next days.
+Hope to upload these in the next days.
 
 Edén Candelas.
+
 @elmundoverdees.
 
 [Original_img]:/images/20200203-original-folders.png
