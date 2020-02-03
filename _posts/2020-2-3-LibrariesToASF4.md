@@ -94,7 +94,51 @@ At this point compiling the code must complete correctly.
 
 ## Integrate the library application code to the new application.
 
+Application files (main.h and main.c) are located on applications folder on root.
 
+From the ASF3 mqtt_chat_example I went to main21.c file and copied all the mqtt related code.
+From the ASF4 tcp_server example, removed all the socket related functions and calls from original example, except the ones inside main().
+On wifi_cb call mqtt_disconnect() on else if section of STATE_CHANGE.
+On wifi_cb call mqtt_connect() on DHCP_CONF.
+Initialize the mqtt drivers by calling configure_mqtt() on main.
+Change `registerSocketCallback` parameters with the mqtt socket_event_handle and the socket_resolve_handler
+
+`registerSocketCallback(socket_event_handler, socket_resolve_handler);`
+
+Modify SysTick_config numerator to 480000000 ( need to fix this to correct define)
+
+```
+if (SysTick_Config(48000000/ 1000)) 
+{
+    printf("ERR>> Systick configuration error\r\n");
+    while (1);
+}
+```
+Add on the main loop (while(1)) the mqtt_yield.
+
+```
+if(mqtt_inst.isConnected){
+    mqtt_yield(&mqtt_inst, 0);
+}
+``
+
+From main.h on ASF3 copy the configuration defines and integrate on the main.h from the ASF4 (on applications folder).
+Make sure to put the correct mqtt broker ip.
+Update the WIFI credentials.
+
+## TODO
+
+I need to create a video of this process to show the flow and the results.
+There are some steps that require their own howto:
+
+* Get a START example up and running.
+* The toolchains availables for working with the SAM microprocesors.
+* How to debug an START applicacion.
+
+How to upload these in the next days.
+
+Edén Candelas.
+@elmundoverdees.
 
 [Original_img]:/images/20200203-original-folders.png
 [PahoFolder_img]:/images/20200203-paho-create.png
