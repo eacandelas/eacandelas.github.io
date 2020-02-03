@@ -151,5 +151,5 @@ Edén Candelas.
 [objs_img]:/images/20200203_objs.png
 [objs_as_args_img]:/images/20200203_dep_as_args.png
 [dir_includes_img]:/images/20200203_dir_includes.png
-[dep_as_args]:/images/20200203_dep_as_args.png
-[includes_fix_img]:/images/20200203-includesFix
+[dep_as_args_img]:/images/20200203_dep_as_args.png
+[includes_fix_img]:/images/20200203-includesFix.png
