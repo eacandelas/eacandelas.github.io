@@ -48,9 +48,10 @@ This is an example on the SUB_DIRS section on how the file looks.
 
 ![makefile_original][makefile_ori_img]
 
-Arrange the lines at the SUB_DIRS, OBJS, OBJS_AS_ARGS, DIR_INCLUDES, DEPS_AS_ARGS sections based on files and folder
-Add in each of the previous sections the paths and files required 
- * Every folder must appear
+Arrange alfabetically the lines at the SUB_DIRS, OBJS, OBJS_AS_ARGS, DIR_INCLUDES, DEPS_AS_ARGS sections based on files and folders.
+On each of the previous sections add the paths and files required for the mqtt library.
+
+ * Every folder from the original library must appear on the ASF4 implementation.
  * For each .c file a .o or .d file must appear.
  * include sections must reflect all folders that have a .h file.
 
@@ -77,7 +78,7 @@ DEP_AS_ARGS section.
 ## Resolve routes on includes.
 
 The copied files were arranged on ASF3 fashion, so when imported some include paths will not be correct.
-The way I fixed this is to run `make` on the gcc file and wait for the errors raised at compile, some of them will show that the file is unknown. So go there and fix those paths.
+The way I fixed this is to run `make` on the gcc file and wait for the errors raised at compilation time, some of them will show that the file is unknown. So go there and fix those paths.
 
 **Caution, only modify the includes starting with "MQTT".**
 
@@ -86,7 +87,7 @@ Files to modify:
     pahomqtt/MQTTClient/MQTT_Client.h
     pahomqtt/MQTTClient/Wrapper/mqtt.h
 
-![includes_fix][includes_fix_img]20200203-includesFix.
+![includes_fix][includes_fix_img]
 
 On the mqtt.h file I had to add the <stdbool.h> since it is not include on the base example and is required for that file to work.
 
@@ -96,16 +97,16 @@ At this point compiling the code must complete correctly.
 
 Application files (main.h and main.c) are located on applications folder on root.
 
-From the ASF3 mqtt_chat_example I went to main21.c file and copied all the mqtt related code.
-From the ASF4 tcp_server example, removed all the socket related functions and calls from original example, except the ones inside main().
-On wifi_cb call mqtt_disconnect() on else if section of STATE_CHANGE.
-On wifi_cb call mqtt_connect() on DHCP_CONF.
-Initialize the mqtt drivers by calling configure_mqtt() on main.
-Change `registerSocketCallback` parameters with the mqtt socket_event_handle and the socket_resolve_handler
+* From the ASF3 mqtt_chat_example I went to main21.c file and copied all the mqtt related code.
+* From the ASF4 tcp_server example, removed all the socket related functions and calls from original example, except the ones inside main().
+* On wifi_cb call mqtt_disconnect() on else if section of STATE_CHANGE.
+* On wifi_cb call mqtt_connect() on DHCP_CONF.
+* Initialize the mqtt drivers by calling configure_mqtt() on main.
+* Change `registerSocketCallback` parameters with the mqtt socket_event_handle and the socket_resolve_handler
 
 `registerSocketCallback(socket_event_handler, socket_resolve_handler);`
 
-Modify SysTick_config numerator to 480000000 ( need to fix this to correct define)
+* Modify SysTick_config numerator to 480000000 ( need to fix this to correct define)
 
 ```
 if (SysTick_Config(48000000/ 1000)) 
@@ -114,7 +115,7 @@ if (SysTick_Config(48000000/ 1000))
     while (1);
 }
 ```
-Add on the main loop (while(1)) the mqtt_yield.
+* Add on the main loop (while(1)) the mqtt_yield.
 
 ```
 if(mqtt_inst.isConnected){
@@ -149,4 +150,5 @@ Edén Candelas.
 [objs_img]:/images/20200203_objs.png
 [objs_as_args_img]:/images/20200203_dep_as_args.png
 [dir_includes_img]:/images/20200203_dir_includes.png
+[dep_as_args]:/images/20200203_dep_as_args.png
 [includes_fix_img]:/images/20200203-includesFix
