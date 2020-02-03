@@ -6,8 +6,10 @@ tags: [sam, start, atmel, microchip, arm, microcontrollers]
 ---
 
 I had to add MQTT functionality to the TCP server demo from START examples.
-I found that the mqtt chat example from ASF3 is not available yet on the START platform, so I had to manually add that library to the TCP server example
-To achieve the task we must perform the following steps.
+I found that the mqtt chat example from ASF3 is not available yet on the START platform, so I had to manually add that library to the TCP server example.
+This how to explains the steps i performed to have it working.
+
+A summary of the process:
 
 * Copy library files to the project.
 * Update makefile with the new files routes.
@@ -53,18 +55,23 @@ Add in each of the previous sections the paths and files required
  * include sections must reflect all folders that have a .h file.
 
 SUB_DIRS section.
+
 ![sub_dirs][sub_dirs_img]
 
 OBJ section.
+
 ![objs][objs_img]
 
 OBJS_AS_ARGS section.
+
 ![objs_as_args][objs_as_args_img]
 
 DIR_INCLUDES section.
+
 ![dir_includes][dir_includes_img]
 
 DEP_AS_ARGS section.
+
 ![dep_as_args][dep_as_args_img]
 
 ## Resolve routes on includes.
@@ -76,8 +83,8 @@ The way I fixed this is to run `make` on the gcc file and wait for the errors ra
 
 Files to modify:
 
-    * pahomqtt/MQTTClient/MQTT_Client.h
-    * pahomqtt/MQTTClient/Wrapper/mqtt.h
+    pahomqtt/MQTTClient/MQTT_Client.h
+    pahomqtt/MQTTClient/Wrapper/mqtt.h
 
 ![includes_fix][includes_fix_img]20200203-includesFix.
 
@@ -88,10 +95,11 @@ At this point compiling the code must complete correctly.
 ## Integrate the library application code to the new application.
 
 
+
 [Original_img]:/images/20200203-original-folders.png
 [PahoFolder_img]:/images/20200203-paho-create.png
 [PahoContents_img]:/images/20200203-paho-contents.png
-[Makefile_location_img]20200203-makefile-location.png
+[Makefile_location_img]:20200203-makefile-location.png
 [makefile_ori_img]:/images/20200203-makefile-original.png
 [sub_dirs_img]:/images/20200203_sub_dirs.png
 [objs_img]:/images/20200203_objs.png
