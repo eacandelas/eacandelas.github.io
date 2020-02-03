@@ -65,7 +65,7 @@ The way I fixed this is to run `make` on the gcc file and wait for the errors ra
 
 [Original_img]:
 
-[sub_dirs_img]:{{ site.baseurl }}/images/20200203_sub_dirs.png
+[sub_dirs_img]:/images/20200203_sub_dirs.png
 
 [objs_img]:
 
