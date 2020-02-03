@@ -5,6 +5,8 @@ categories: [howto, tutorial]
 tags: [sam, start, atmel, microchip, arm, microcontrollers]
 ---
 
+I had to add MQTT functionality to the TCP server demo from START examples.
+I found that the mqtt chat example from ASF3 is not available yet on the START platform, so I had to manually add that library to the TCP server example
 To achieve the task we must perform the following steps.
 
 * Copy library files to the project.
@@ -70,6 +72,21 @@ DEP_AS_ARGS section.
 The copied files were arranged on ASF3 fashion, so when imported some include paths will not be correct.
 The way I fixed this is to run `make` on the gcc file and wait for the errors raised at compile, some of them will show that the file is unknown. So go there and fix those paths.
 
+**Caution, only modify the includes starting with "MQTT".**
+
+Files to modify:
+
+    * pahomqtt/MQTTClient/MQTT_Client.h
+    * pahomqtt/MQTTClient/Wrapper/mqtt.h
+
+![includes_fix][includes_fix_img]20200203-includesFix.
+
+On the mqtt.h file I had to add the <stdbool.h> since it is not include on the base example and is required for that file to work.
+
+At this point compiling the code must complete correctly.
+
+## Integrate the library application code to the new application.
+
 
 [Original_img]:/images/20200203-original-folders.png
 [PahoFolder_img]:/images/20200203-paho-create.png
@@ -80,3 +97,4 @@ The way I fixed this is to run `make` on the gcc file and wait for the errors ra
 [objs_img]:/images/20200203_objs.png
 [objs_as_args_img]:/images/20200203_dep_as_args.png
 [dir_includes_img]:/images/20200203_dir_includes.png
+[includes_fix_img]:/images/20200203-includesFix
